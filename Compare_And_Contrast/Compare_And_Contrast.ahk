@@ -24,7 +24,7 @@ If !Check(Obj := {Review:"  po box 12345", Against:"PO BOX 12345", Subject:"Post
 If (Report != " ")
 	MsgBox % Report 
 
-Exit ; EOAES
+ExitApp ;EOAES   
 
 
 Check(Obj){ ; This is a helper function to go along with Compare_And_Contrast.Compare
@@ -60,7 +60,7 @@ Examples of False Negatives I Wish to Avoid:
 		;----------------[Settings]----------------
 		;------------------------------------------
 
-		This.ShowGuiOnSuccess := 1 ;Show the Data Compare GUI even on Successful matches. 
+		This.ShowGuiOnSuccess := 1 ;Show the Data Compare GUI even on successful matches. 
 
 		;------------------------------------------
 		;------------------------------------------
@@ -116,6 +116,7 @@ Examples of False Negatives I Wish to Avoid:
 		}
 		return 1
 	}
+
 	DirectCompare(){
 		if (This.Properties["Compare"] = This.Properties["Against"]){
 			This.Properties["Response"] := 1
@@ -144,11 +145,9 @@ Examples of False Negatives I Wish to Avoid:
 			LV_Modify(1,,, This.Properties["OG_Compare"])
 			LV_Modify(2,,, This.Properties["OG_Against"])	
 		}
-
 		if (A_ThisMenuItem = "E&xit"){
 			ExitApp
 		}
-
 		if (A_ThisMenuItem = "&About"){
 			This.About()
 		}		
@@ -182,15 +181,13 @@ Examples of False Negatives I Wish to Avoid:
 
 		Gui, Add, ListView, x12 y39 w250 h100 +HWNDhListView cRed -ReadOnly +AltSubmit -Multi , Source:|Formatted:|Original:
 
-		;ListView := New LV_InCellEdit(hListView)
-
 		LV_Add("", "Review: ", This.Properties["Compare"], This.Properties["OG_Compare"])
 		LV_Add("", "Against: ", This.Properties["Against"], This.Properties["OG_Against"])
 			LV_ModifyCol() 
 			LV_ModifyCol(1, "AutoHdr") 
 			LV_ModifyCol(2, "AutoHdr") 
 
-		Gui, Add, Button, x12 y145 w100 h30 +HwndhYes, Yes
+		Gui, Add, Button, x12 y145 w100 h30 +HwndhYes +Default, Yes
 			This.Bind(hYes, "GuiResponse", 1)
 
 		Gui, Add, Button, x162 y145 w100 h30 +HwndhNo, No
